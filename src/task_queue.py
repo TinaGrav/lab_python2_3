@@ -2,14 +2,14 @@ from class_task import Task
 
 
 class TaskIterator:
-    def __init__(self, tasks):   # init tasks and index
+    def __init__(self, tasks: list):   # init tasks and index
         self.tasks = tasks
         self.index = 0
 
     def __iter__(self):
         return self
 
-    def __next__(self):
+    def __next__(self) -> Task:
         if self.index < len(self.tasks):  # check if index is not out of range
             res = self.tasks[self.index]
             self.index += 1
@@ -24,10 +24,10 @@ class TaskQueue:
     def add_task(self, task: Task):  # add task to tasks list
         self.tasks.append(task)
 
-    def __iter__(self):  # use iterator
+    def __iter__(self) -> TaskIterator:  # use iterator
         return TaskIterator(self.tasks)
 
-    def filter(self, status=None, priority=None):  # filter for status and priority
+    def filter(self, status: str = None, priority: int = None):  # filter for status and priority
         for task in self.tasks:
             if status is not None and task.status != status:
                 continue
@@ -35,10 +35,10 @@ class TaskQueue:
                 continue
             yield task  # yield filtered task
 
-    def __len__(self):
+    def __len__(self) -> int:  # return number of tasks
         return len(self.tasks)
 
-    def last(self):
+    def last(self) -> Task:  # return last added task
         return self.tasks[-1]
 
 
